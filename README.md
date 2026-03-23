@@ -81,15 +81,6 @@ genai-leader-study-guide/
 
 ---
 
-## 🤝 Contributing
-
-Found an error or a topic that needs updating? PRs are welcome.
-
-1. Fork the repo
-2. Edit `google-genai-leader-study-guide.html`
-3. Open a pull request with a brief description of the change
-
----
 
 ## 📄 License
 
