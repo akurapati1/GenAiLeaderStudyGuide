@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Generative AI Leader – Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1c2536;
+    --border: #2a3548;
+    --accent: #4f8ef7;
+    --accent2: #a78bfa;
+    --accent3: #34d399;
+    --accent4: #fbbf24;
+    --accent5: #f87171;
+    --text: #e2e8f0;
+    --muted: #7b8fa6;
+    --card-hover: #1e2d45;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Lora', Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    position: relative;
+    padding: 60px 40px 50px;
+    background: linear-gradient(135deg, #0a0e1a 0%, #0d1628 50%, #111827 100%);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: 10%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(79,142,247,0.12);
+    border: 1px solid rgba(79,142,247,0.3);
+    color: var(--accent);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #fff 0%, #a5c8ff 50%, #c4b5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 14px;
+  }
+  .subtitle {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: var(--muted);
+    font-style: italic;
+    max-width: 600px;
+  }
+
+  /* ---- EXAM META GRID ---- */
+  .meta-grid {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    padding: 28px 40px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-card {
+    flex: 1 1 140px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .meta-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .meta-value { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); }
+
+  /* ---- NAV TABS ---- */
+  .nav {
+    display: flex; gap: 0;
+    padding: 0 40px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 16px 22px;
+    background: none; border: none;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ---- MAIN CONTENT ---- */
+  main { padding: 36px 40px; max-width: 1100px; margin: 0 auto; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+
+  /* ---- SECTION HEADING ---- */
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-tag {
+    font-size: 0.72rem;
+    font-family: 'IBM Plex Mono', monospace;
+    background: rgba(79,142,247,0.15);
+    color: var(--accent);
+    border: 1px solid rgba(79,142,247,0.3);
+    padding: 3px 10px;
+    border-radius: 100px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .section-desc { color: var(--muted); font-size: 0.95rem; margin-bottom: 24px; font-style: italic; }
+
+  /* ---- DOMAIN CARDS ---- */
+  .domain-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; margin-bottom: 36px; }
+  .domain-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .domain-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .domain-card:hover { background: var(--card-hover); border-color: rgba(79,142,247,0.4); transform: translateY(-2px); }
+  .d1::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+  .d2::before { background: linear-gradient(90deg, var(--accent3), var(--accent)); }
+  .d3::before { background: linear-gradient(90deg, var(--accent4), var(--accent5)); }
+  .d4::before { background: linear-gradient(90deg, var(--accent2), var(--accent5)); }
+  .domain-pct {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .d1 .domain-pct { color: var(--accent); }
+  .d2 .domain-pct { color: var(--accent3); }
+  .d3 .domain-pct { color: var(--accent4); }
+  .d4 .domain-pct { color: var(--accent2); }
+  .domain-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 8px; }
+  .domain-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+  /* ---- TOPIC BLOCK ---- */
+  .topic-block {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .topic-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 22px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .topic-header:hover { background: rgba(255,255,255,0.03); }
+  .topic-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #fff;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .topic-icon { font-size: 1.1rem; }
+  .chevron { color: var(--muted); transition: transform 0.2s; font-size: 0.8rem; }
+  .topic-block.open .chevron { transform: rotate(180deg); }
+  .topic-body { display: none; padding: 0 22px 22px; border-top: 1px solid var(--border); }
+  .topic-block.open .topic-body { display: block; }
+
+  /* ---- CONTENT INSIDE TOPIC ---- */
+  .content-section { margin-top: 18px; }
+  .content-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .concept-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .concept-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.9rem; color: #c4d4e8;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    border-left: 2px solid transparent;
+  }
+  .concept-list li .dot { flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; margin-top: 7px; }
+  .d1-dot { background: var(--accent); }
+  .d2-dot { background: var(--accent3); }
+  .d3-dot { background: var(--accent4); }
+  .d4-dot { background: var(--accent2); }
+
+  .exam-q {
+    background: rgba(79,142,247,0.08);
+    border: 1px solid rgba(79,142,247,0.2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 14px;
+  }
+  .exam-q-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .exam-q p { font-size: 0.9rem; color: #d1dfee; font-style: italic; }
+
+  /* ---- KEY CONCEPTS GRID ---- */
+  .concepts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+  .concept-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    transition: all 0.2s;
+  }
+  .concept-card:hover { border-color: rgba(167,139,250,0.4); background: var(--card-hover); }
+  .concept-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .concept-card-icon { font-size: 1.1rem; }
+  .concept-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+  /* ---- COMPARISON TABLE ---- */
+  .compare-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .compare-table th {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 16px;
+    text-align: left;
+    background: var(--surface);
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table td {
+    padding: 11px 16px;
+    font-size: 0.88rem;
+    color: var(--text);
+    border-bottom: 1px solid rgba(42,53,72,0.6);
+  }
+  .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 0.75rem; font-family: 'IBM Plex Mono', monospace; }
+  .tag-blue { background: rgba(79,142,247,0.15); color: var(--accent); }
+  .tag-green { background: rgba(52,211,153,0.15); color: var(--accent3); }
+  .tag-yellow { background: rgba(251,191,36,0.15); color: var(--accent4); }
+  .tag-purple { background: rgba(167,139,250,0.15); color: var(--accent2); }
+  .tag-red { background: rgba(248,113,113,0.15); color: var(--accent5); }
+
+  /* ---- STUDY PLAN ---- */
+  .plan-phases { display: flex; flex-direction: column; gap: 14px; }
+  .phase-card {
+    display: flex; gap: 20px; align-items: flex-start;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .phase-num {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+  .phase-p1 { background: rgba(79,142,247,0.15); color: var(--accent); border: 1px solid rgba(79,142,247,0.3); }
+  .phase-p2 { background: rgba(52,211,153,0.15); color: var(--accent3); border: 1px solid rgba(52,211,153,0.3); }
+  .phase-p3 { background: rgba(251,191,36,0.15); color: var(--accent4); border: 1px solid rgba(251,191,36,0.3); }
+  .phase-p4 { background: rgba(167,139,250,0.15); color: var(--accent2); border: 1px solid rgba(167,139,250,0.3); }
+  .phase-p5 { background: rgba(248,113,113,0.15); color: var(--accent5); border: 1px solid rgba(248,113,113,0.3); }
+  .phase-content { flex: 1; }
+  .phase-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 4px; }
+  .phase-weeks { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); margin-bottom: 8px; }
+  .phase-items { font-size: 0.88rem; color: #b0c4da; line-height: 1.8; }
+
+  /* ---- TIPS BOX ---- */
+  .tip-box {
+    background: rgba(52,211,153,0.07);
+    border: 1px solid rgba(52,211,153,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .tip-box-title { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--accent3); font-size: 0.9rem; margin-bottom: 8px; }
+  .tip-box p, .tip-box li { font-size: 0.88rem; color: #a7e8cf; line-height: 1.7; }
+  .tip-box ul { padding-left: 16px; }
+
+  .warn-box {
+    background: rgba(251,191,36,0.07);
+    border: 1px solid rgba(251,191,36,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .warn-box-title { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--accent4); font-size: 0.9rem; margin-bottom: 8px; }
+  .warn-box p, .warn-box li { font-size: 0.88rem; color: #fde68a; line-height: 1.7; }
+  .warn-box ul { padding-left: 16px; }
+
+  /* ---- FOOTER ---- */
+  .ready-cta {
+    text-align: center;
+    padding: 48px 40px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  .ready-cta h2 { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+  .ready-cta p { color: var(--muted); font-size: 0.95rem; font-style: italic; margin-bottom: 24px; }
+  .cta-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 14px 32px;
+    border-radius: 100px;
+    border: none; cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(79,142,247,0.3); }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  @media(max-width: 640px) {
+    header, main, .meta-grid, .nav { padding-left: 20px; padding-right: 20px; }
+    .domain-cards { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge"><span></span> Google Cloud Certification</div>
+  <h1>Generative AI Leader<br>Study Guide</h1>
+  <p class="subtitle">Your complete reference for mastering the exam — domains, concepts, tools, and strategy in one place.</p>
+</header>
+
+<!-- EXAM META -->
+<div class="meta-grid">
+  <div class="meta-card"><div class="meta-label">Duration</div><div class="meta-value">60 min</div></div>
+  <div class="meta-card"><div class="meta-label">Questions</div><div class="meta-value">40–60</div></div>
+  <div class="meta-card"><div class="meta-label">Passing Score</div><div class="meta-value">700 / 1000</div></div>
+  <div class="meta-card"><div class="meta-label">Exam Cost</div><div class="meta-value">$99 USD</div></div>
+  <div class="meta-card"><div class="meta-label">Validity</div><div class="meta-value">3 Years</div></div>
+  <div class="meta-card"><div class="meta-label">Format</div><div class="meta-value">MCQ / Multi-select</div></div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button class="tab-btn active" onclick="showTab('domains', this)">📋 Domains</button>
+  <button class="tab-btn" onclick="showTab('topics', this)">📚 All Topics</button>
+  <button class="tab-btn" onclick="showTab('tools', this)">🛠️ Google Tools</button>
+  <button class="tab-btn" onclick="showTab('concepts', this)">🧠 Key Concepts</button>
+  <button class="tab-btn" onclick="showTab('plan', this)">🗓️ Study Plan</button>
+  <button class="tab-btn" onclick="showTab('tips', this)">💡 Exam Tips</button>
+</div>
+
+<main>
+
+<!-- ===== TAB: DOMAINS ===== -->
+<div id="tab-domains" class="tab-panel active">
+  <div class="section-title">Exam Domains <span class="section-tag">4 Areas</span></div>
+  <p class="section-desc">The exam is split across four weighted domains. Focus your energy proportionally.</p>
+
+  <div class="domain-cards">
+    <div class="domain-card d1" onclick="showTab('topics', document.querySelector('[onclick*=topics]'))">
+      <div class="domain-pct">~30%</div>
+      <div class="domain-name">Domain 1 — Fundamentals of Generative AI</div>
+      <div class="domain-desc">Core concepts: what AI, ML, and GenAI are; foundation models; LLMs; data types; ML lifecycle; responsible AI basics.</div>
+    </div>
+    <div class="domain-card d2" onclick="showTab('topics', document.querySelector('[onclick*=topics]'))">
+      <div class="domain-pct">~35%</div>
+      <div class="domain-name">Domain 2 — Google Cloud's Generative AI Offerings</div>
+      <div class="domain-desc">Gemini, Vertex AI, Google AI Studio, Workspace, APIs, Agentspace — which tool for which scenario.</div>
+    </div>
+    <div class="domain-card d3" onclick="showTab('topics', document.querySelector('[onclick*=topics]'))">
+      <div class="domain-pct">~20%</div>
+      <div class="domain-name">Domain 3 — Techniques to Improve Model Output</div>
+      <div class="domain-desc">Prompt engineering, RAG, grounding, model parameters (temperature, top-p), fine-tuning, HITL.</div>
+    </div>
+    <div class="domain-card d4" onclick="showTab('topics', document.querySelector('[onclick*=topics]'))">
+      <div class="domain-pct">~15%</div>
+      <div class="domain-name">Domain 4 — Business Strategies for Gen AI</div>
+      <div class="domain-desc">Responsible AI, model selection, SAIF, governance, compliance, ROI, organizational readiness.</div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-box-title">✅ Exam Strategy at a Glance</div>
+    <ul>
+      <li>Domain 2 carries the most weight (~35%) — master every Google Cloud GenAI product and when to use it.</li>
+      <li>Domains 1 & 3 together are 50% — understand GenAI fundamentals and prompt engineering deeply.</li>
+      <li>Domain 4 (15%) is scenario-heavy — think like a business leader evaluating trade-offs.</li>
+      <li>Questions are multiple choice + multiple select. Watch for "select all that apply."</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== TAB: TOPICS ===== -->
+<div id="tab-topics" class="tab-panel">
+  <div class="section-title">Complete Topic Coverage <span class="section-tag">By Domain</span></div>
+  <p class="section-desc">Click each topic block to expand full study notes.</p>
+
+  <!-- DOMAIN 1 -->
+  <div style="margin-bottom: 8px; padding: 8px 14px; background: rgba(79,142,247,0.08); border-radius: 8px; border-left: 3px solid var(--accent);">
+    <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; color:var(--accent);">DOMAIN 1 — Fundamentals (~30%)</span>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">🤖</span> AI vs ML vs Deep Learning vs Generative AI</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <div class="content-label">Core Distinctions</div>
+        <ul class="concept-list">
+          <li><span class="dot d1-dot"></span><strong>AI</strong> — Broad field: machines that simulate human intelligence (reasoning, learning, problem-solving).</li>
+          <li><span class="dot d1-dot"></span><strong>Machine Learning</strong> — Subset of AI; systems learn from data patterns without explicit programming.</li>
+          <li><span class="dot d1-dot"></span><strong>Deep Learning</strong> — Subset of ML using neural networks with many layers; excels at images, speech, text.</li>
+          <li><span class="dot d1-dot"></span><strong>Generative AI</strong> — Subset of DL; models that <em>create new content</em> (text, images, audio, code) rather than just classify or predict.</li>
+          <li><span class="dot d1-dot"></span><strong>Key Differentiator</strong> — Traditional ML predicts; GenAI generates. GenAI learns the distribution of training data and samples from it.</li>
+        </ul>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>A company wants a system that generates product descriptions from structured specs. Which AI capability is MOST appropriate? → <strong>Generative AI / LLM</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">🏗️</span> Foundation Models & Large Language Models (LLMs)</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <div class="content-label">What You Must Know</div>
+        <ul class="concept-list">
+          <li><span class="dot d1-dot"></span><strong>Foundation Model</strong> — A large pre-trained model on vast data; adaptable to many tasks via fine-tuning or prompting.</li>
+          <li><span class="dot d1-dot"></span><strong>LLM</strong> — Foundation model specifically for language; uses transformer architecture; trained via self-supervised learning.</li>
+          <li><span class="dot d1-dot"></span><strong>Transformer Architecture</strong> — Self-attention mechanism processes entire sequences at once; enables understanding context across long inputs.</li>
+          <li><span class="dot d1-dot"></span><strong>Tokens</strong> — Text is split into tokens (≈ word fragments). Token limits = context window size.</li>
+          <li><span class="dot d1-dot"></span><strong>Embeddings</strong> — Numerical vector representations of text; capture semantic meaning; enable similarity search.</li>
+          <li><span class="dot d1-dot"></span><strong>Multimodal Models</strong> — Handle multiple input types: text, images, audio, video (e.g., Gemini). Uni-modal = one type.</li>
+          <li><span class="dot d1-dot"></span><strong>Limitations</strong> — Hallucinations (fabricated facts), bias (from training data), knowledge cutoff (no real-time data), context window limits.</li>
+        </ul>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>An LLM generates confident but factually incorrect information. This is called: → <strong>Hallucination</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">📊</span> ML Lifecycle & Data Types</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <div class="content-label">ML Lifecycle Stages</div>
+        <ul class="concept-list">
+          <li><span class="dot d1-dot"></span><strong>1. Problem Definition</strong> — Define the business objective and success metrics.</li>
+          <li><span class="dot d1-dot"></span><strong>2. Data Collection & Preparation</strong> — Gather, clean, label data; split into train/validation/test sets.</li>
+          <li><span class="dot d1-dot"></span><strong>3. Model Training</strong> — Feed data into algorithm; model learns parameters to minimize loss.</li>
+          <li><span class="dot d1-dot"></span><strong>4. Model Evaluation</strong> — Use metrics (accuracy, BLEU, ROUGE, perplexity) on held-out test data.</li>
+          <li><span class="dot d1-dot"></span><strong>5. Deployment</strong> — Serve model via API or application (Vertex AI Prediction).</li>
+          <li><span class="dot d1-dot"></span><strong>6. Monitoring</strong> — Track performance, detect drift, retrain as needed.</li>
+        </ul>
+        <div class="content-label" style="margin-top:16px;">Data Types</div>
+        <ul class="concept-list">
+          <li><span class="dot d1-dot"></span><strong>Structured</strong> — Rows & columns (SQL tables, spreadsheets). Easy to query.</li>
+          <li><span class="dot d1-dot"></span><strong>Unstructured</strong> — Text, images, audio, video, PDFs. GenAI excels here.</li>
+          <li><span class="dot d1-dot"></span><strong>Semi-structured</strong> — JSON, XML — has some organization but not rigid schema.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">⚖️</span> Responsible AI Fundamentals</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <div class="content-label">Google's 7 Responsible AI Principles</div>
+        <ul class="concept-list">
+          <li><span class="dot d1-dot"></span><strong>Socially Beneficial</strong> — AI should benefit society at large.</li>
+          <li><span class="dot d1-dot"></span><strong>Avoid Unfair Bias</strong> — Prevent discrimination; test for fairness across demographic groups.</li>
+          <li><span class="dot d1-dot"></span><strong>Safety</strong> — Test rigorously; operate within appropriate constraints.</li>
+          <li><span class="dot d1-dot"></span><strong>Accountable</strong> — Humans should be able to oversee and correct AI systems.</li>
+          <li><span class="dot d1-dot"></span><strong>Privacy</strong> — Respect data privacy; obtain appropriate consent.</li>
+          <li><span class="dot d1-dot"></span><strong>Uphold Scientific Excellence</strong> — Apply rigorous scientific standards.</li>
+          <li><span class="dot d1-dot"></span><strong>Made Available for Uses That Accord with These Principles</strong> — Don't enable harmful applications.</li>
+        </ul>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>An AI model for loan approvals shows bias against a protected group. Which responsible AI principle is MOST violated? → <strong>Fairness / Avoid Unfair Bias</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN 2 -->
+  <div style="margin: 24px 0 8px; padding: 8px 14px; background: rgba(52,211,153,0.08); border-radius: 8px; border-left: 3px solid var(--accent3);">
+    <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; color:var(--accent3);">DOMAIN 2 — Google Cloud GenAI Offerings (~35%) — HIGHEST WEIGHT</span>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">💎</span> Gemini Model Family</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <div class="content-label">Gemini Variants</div>
+        <ul class="concept-list">
+          <li><span class="dot d2-dot"></span><strong>Gemini Ultra / Pro / Flash / Nano</strong> — Different size/speed/capability trade-offs. Ultra = most capable; Nano = on-device.</li>
+          <li><span class="dot d2-dot"></span><strong>Gemini App (consumer)</strong> — Consumer-facing AI assistant at gemini.google.com. Not for enterprise dev.</li>
+          <li><span class="dot d2-dot"></span><strong>Gemini for Workspace</strong> — AI embedded in Gmail, Docs, Sheets, Slides, Meet. Drafting, summarizing, analyzing.</li>
+          <li><span class="dot d2-dot"></span><strong>Gemini for Google Cloud</strong> — AI assistance inside Cloud Console, BigQuery, Colab. Helps write queries, explain code, manage infra.</li>
+          <li><span class="dot d2-dot"></span><strong>Multimodal</strong> — Gemini natively understands text, images, audio, video, and code in one model.</li>
+        </ul>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>A sales team wants AI to draft email responses inside Gmail. Best tool? → <strong>Gemini for Workspace</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">🧪</span> Google AI Studio vs. Vertex AI Studio</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <table class="compare-table">
+          <tr><th>Feature</th><th>Google AI Studio</th><th>Vertex AI Studio</th></tr>
+          <tr><td>Target User</td><td>Developers prototyping quickly</td><td>Enterprise / production teams</td></tr>
+          <tr><td>Coding Required</td><td>Minimal (web UI)</td><td>More involved</td></tr>
+          <tr><td>Cost</td><td>Free tier available</td><td>Pay-as-you-go</td></tr>
+          <tr><td>Security & Compliance</td><td>Consumer-grade</td><td>Enterprise-grade (VPC, IAM)</td></tr>
+          <tr><td>Model Fine-tuning</td><td>Limited</td><td>Full fine-tuning & RLHF</td></tr>
+          <tr><td>Use Case</td><td>Experiment with Gemini API fast</td><td>Build production GenAI apps</td></tr>
+        </table>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>A startup wants to quickly prototype a content generator with no backend setup. → <strong>Google AI Studio</strong>. A bank needs enterprise security + compliance for production → <strong>Vertex AI Studio</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">🏢</span> Vertex AI Platform</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <div class="content-label">Key Components</div>
+        <ul class="concept-list">
+          <li><span class="dot d2-dot"></span><strong>Model Garden</strong> — Catalog of Google + third-party models (Gemini, Llama, Claude, open-source). Browse, test, deploy.</li>
+          <li><span class="dot d2-dot"></span><strong>Vertex AI Studio</strong> — Web-based UI for prompting, tuning, and deploying models.</li>
+          <li><span class="dot d2-dot"></span><strong>Vertex AI Pipelines</strong> — Orchestrate ML workflows (data prep → train → evaluate → deploy).</li>
+          <li><span class="dot d2-dot"></span><strong>Vertex AI Prediction</strong> — Serve trained models as scalable APIs.</li>
+          <li><span class="dot d2-dot"></span><strong>Vertex AI Vector Search</strong> — High-scale vector database for semantic/similarity search (critical for RAG).</li>
+          <li><span class="dot d2-dot"></span><strong>Vertex AI Workbench</strong> — Jupyter notebook environment for ML development.</li>
+          <li><span class="dot d2-dot"></span><strong>Vertex AI Agents</strong> — Build, deploy, and manage AI agents with tool use.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">🔌</span> Google Cloud AI APIs</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <table class="compare-table">
+          <tr><th>API</th><th>What It Does</th><th>Example Use Case</th></tr>
+          <tr><td><strong>Vision API</strong></td><td>Analyze images: labels, faces, text (OCR), objects</td><td>Product image tagging</td></tr>
+          <tr><td><strong>Video Intelligence API</strong></td><td>Analyze video: scene detection, transcription, content moderation</td><td>Media content indexing</td></tr>
+          <tr><td><strong>Natural Language API</strong></td><td>Sentiment, entity recognition, syntax, classification</td><td>Customer review analysis</td></tr>
+          <tr><td><strong>Translation API</strong></td><td>Translate text across 100+ languages</td><td>Multilingual customer support</td></tr>
+          <tr><td><strong>Speech-to-Text</strong></td><td>Convert audio/speech to text transcripts</td><td>Call center transcription</td></tr>
+          <tr><td><strong>Text-to-Speech</strong></td><td>Convert text to natural-sounding speech</td><td>Voice assistants, IVR</td></tr>
+          <tr><td><strong>Document AI</strong></td><td>Extract structured data from documents (invoices, forms, receipts)</td><td>Invoice processing automation</td></tr>
+        </table>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>A logistics company wants to auto-extract vendor name, date, and total from scanned invoices. Best API? → <strong>Document AI</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">🤝</span> NotebookLM & Agentspace</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <ul class="concept-list">
+          <li><span class="dot d2-dot"></span><strong>NotebookLM</strong> — AI-powered note-taking and research tool. Upload documents; ask questions; get grounded summaries citing your sources. Best for individual knowledge workers doing research.</li>
+          <li><span class="dot d2-dot"></span><strong>Google Agentspace</strong> — Enterprise AI agent platform. Connects to internal data (Drive, Jira, Salesforce). Employees can ask questions across enterprise systems. Agent can take actions.</li>
+          <li><span class="dot d2-dot"></span><strong>Customer Engagement Suite</strong> — AI-powered contact center; virtual agents for customer service; omnichannel support with GenAI.</li>
+        </ul>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>A company wants employees to query across internal SharePoint, Jira, and Salesforce using natural language. → <strong>Google Agentspace</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN 3 -->
+  <div style="margin: 24px 0 8px; padding: 8px 14px; background: rgba(251,191,36,0.08); border-radius: 8px; border-left: 3px solid var(--accent4);">
+    <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; color:var(--accent4);">DOMAIN 3 — Techniques to Improve Output (~20%)</span>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">✏️</span> Prompt Engineering Techniques</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <table class="compare-table">
+          <tr><th>Technique</th><th>Description</th><th>When to Use</th></tr>
+          <tr><td><strong>Zero-shot</strong></td><td>No examples given; rely on model's training</td><td>Simple, well-understood tasks</td></tr>
+          <tr><td><strong>One-shot</strong></td><td>One example in the prompt</td><td>When format matters; simple guidance</td></tr>
+          <tr><td><strong>Few-shot</strong></td><td>Multiple examples in the prompt</td><td>Complex patterns, specific formats</td></tr>
+          <tr><td><strong>Chain-of-Thought (CoT)</strong></td><td>Ask model to "think step by step"</td><td>Math, reasoning, multi-step logic</td></tr>
+          <tr><td><strong>Role Assignment</strong></td><td>Give model a persona ("You are an expert…")</td><td>Specialized tone / domain expertise</td></tr>
+          <tr><td><strong>Prompt Chaining</strong></td><td>Output of one prompt feeds into the next</td><td>Complex multi-step tasks</td></tr>
+          <tr><td><strong>Metaprompting</strong></td><td>Use AI to generate or improve prompts</td><td>Prompt optimization workflows</td></tr>
+        </table>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>A team wants the model to solve complex math problems accurately. Best technique? → <strong>Chain-of-Thought prompting</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">🔍</span> Grounding vs. RAG</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <ul class="concept-list">
+          <li><span class="dot d3-dot"></span><strong>Grounding</strong> — Connecting model responses to authoritative external data sources to reduce hallucinations. The model cites or draws from real data.</li>
+          <li><span class="dot d3-dot"></span><strong>RAG (Retrieval-Augmented Generation)</strong> — A specific grounding technique: (1) Retrieve relevant documents from a vector store; (2) Add them to the prompt context; (3) Model generates response based on retrieved docs.</li>
+          <li><span class="dot d3-dot"></span><strong>When to use RAG</strong> — Large knowledge bases, real-time data needs, proprietary/internal docs, reduce hallucination on facts.</li>
+          <li><span class="dot d3-dot"></span><strong>Grounding with Google Search</strong> — Vertex AI allows grounding model responses with live Google Search results.</li>
+          <li><span class="dot d3-dot"></span><strong>Vector DB for RAG</strong> — Documents converted to embeddings; stored in Vertex AI Vector Search; semantically retrieved at query time.</li>
+        </ul>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>A company wants a chatbot to answer HR policy questions using internal policy documents without retraining the model. Best approach? → <strong>RAG (Retrieval-Augmented Generation)</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">🎛️</span> Model Parameters</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <table class="compare-table">
+          <tr><th>Parameter</th><th>What It Controls</th><th>Lower Value</th><th>Higher Value</th></tr>
+          <tr><td><strong>Temperature</strong></td><td>Randomness / creativity</td><td>More deterministic, focused</td><td>More creative, varied, risky</td></tr>
+          <tr><td><strong>Top-p (nucleus)</strong></td><td>Pool of tokens to sample from</td><td>Narrow, predictable</td><td>Wider vocabulary</td></tr>
+          <tr><td><strong>Top-k</strong></td><td>Number of top tokens considered</td><td>Conservative</td><td>More diverse outputs</td></tr>
+          <tr><td><strong>Max Output Tokens</strong></td><td>Maximum response length</td><td>Short responses</td><td>Longer responses</td></tr>
+          <tr><td><strong>Safety Settings</strong></td><td>Content filtering thresholds</td><td>Stricter filtering</td><td>More permissive</td></tr>
+        </table>
+        <div class="content-label" style="margin-top:16px;">Key Rules</div>
+        <ul class="concept-list">
+          <li><span class="dot d3-dot"></span>Use <strong>low temperature (0–0.2)</strong> for: factual Q&A, code generation, structured outputs.</li>
+          <li><span class="dot d3-dot"></span>Use <strong>high temperature (0.7–1.0)</strong> for: creative writing, brainstorming, marketing copy.</li>
+          <li><span class="dot d3-dot"></span><strong>Temperature = 0</strong> → Greedy decoding; always picks most likely token. Fully deterministic.</li>
+        </ul>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>A chatbot generating creative story variations produces repetitive outputs. Which parameter should be increased? → <strong>Temperature</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">🔧</span> Fine-tuning vs. Prompting vs. RAG</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <table class="compare-table">
+          <tr><th>Approach</th><th>What It Is</th><th>Best For</th><th>Cost</th></tr>
+          <tr><td><strong>Prompting</strong></td><td>Craft better instructions; no training</td><td>Quick wins, task guidance</td><td>Low</td></tr>
+          <tr><td><strong>RAG</strong></td><td>Retrieve external context at runtime</td><td>Large dynamic knowledge bases</td><td>Medium</td></tr>
+          <tr><td><strong>Fine-tuning</strong></td><td>Retrain model on domain-specific data</td><td>Specialized style, format, terminology</td><td>High</td></tr>
+          <tr><td><strong>RLHF</strong></td><td>Reinforcement Learning from Human Feedback — align with human preferences</td><td>Alignment, safety, helpfulness</td><td>Very High</td></tr>
+        </table>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>A company wants a model that always responds in their specific legal writing style. No existing examples in training data. → <strong>Fine-tuning</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN 4 -->
+  <div style="margin: 24px 0 8px; padding: 8px 14px; background: rgba(167,139,250,0.08); border-radius: 8px; border-left: 3px solid var(--accent2);">
+    <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; color:var(--accent2);">DOMAIN 4 — Business Strategies (~15%)</span>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">🏛️</span> SAIF — Google's Secure AI Framework</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <div class="content-label">6 Core Elements of SAIF</div>
+        <ul class="concept-list">
+          <li><span class="dot d4-dot"></span><strong>Expand strong security foundations to the AI ecosystem</strong> — Apply existing Google Cloud security controls (IAM, VPC) to AI.</li>
+          <li><span class="dot d4-dot"></span><strong>Extend detection and response</strong> — Monitor AI systems for unusual behavior; include in SIEM/SOAR workflows.</li>
+          <li><span class="dot d4-dot"></span><strong>Automate defenses</strong> — Use AI to defend AI systems; automated threat detection.</li>
+          <li><span class="dot d4-dot"></span><strong>Harmonize platform-level controls</strong> — Consistent security controls across the AI lifecycle.</li>
+          <li><span class="dot d4-dot"></span><strong>Adapt controls to address AI-specific risks</strong> — Defend against prompt injection, model poisoning, data exfiltration via AI.</li>
+          <li><span class="dot d4-dot"></span><strong>Contextualize AI system risks</strong> — Evaluate risk based on deployment context and data sensitivity.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">🎯</span> Model Selection Criteria</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <ul class="concept-list">
+          <li><span class="dot d4-dot"></span><strong>Modality</strong> — What data types does your task require? Text-only, image+text, audio, video, multimodal?</li>
+          <li><span class="dot d4-dot"></span><strong>Context Window</strong> — How much input does the model accept? Long docs need large context windows.</li>
+          <li><span class="dot d4-dot"></span><strong>Performance / Quality</strong> — Accuracy benchmarks; evaluated on your specific task.</li>
+          <li><span class="dot d4-dot"></span><strong>Latency</strong> — Real-time apps (chatbots) need fast inference; batch jobs can tolerate delays.</li>
+          <li><span class="dot d4-dot"></span><strong>Cost</strong> — Larger models cost more per token. Flash models cheaper than Pro/Ultra.</li>
+          <li><span class="dot d4-dot"></span><strong>Data Residency / Compliance</strong> — Regulated industries (healthcare, finance) may require data to stay in specific regions.</li>
+          <li><span class="dot d4-dot"></span><strong>Open-source vs. Proprietary</strong> — Open-source (Llama) = customizable but self-managed; proprietary (Gemini) = managed, enterprise support.</li>
+        </ul>
+      </div>
+      <div class="exam-q">
+        <div class="exam-q-label">📝 Exam-style Q</div>
+        <p>A healthcare org needs to summarize patient records but data cannot leave the EU. Which factor is MOST critical in model selection? → <strong>Data Residency / Compliance</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block" onclick="toggleTopic(this)">
+    <div class="topic-header">
+      <div class="topic-title"><span class="topic-icon">📈</span> GenAI Adoption Strategy</div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="topic-body">
+      <div class="content-section">
+        <ul class="concept-list">
+          <li><span class="dot d4-dot"></span><strong>Problem-First Approach</strong> — Google recommends: START with the business problem, not the technology. Define desired outcomes first.</li>
+          <li><span class="dot d4-dot"></span><strong>Top-Down Strategy</strong> — Leadership mandates AI adoption; top-down governance, investment, and policy.</li>
+          <li><span class="dot d4-dot"></span><strong>Bottom-Up Strategy</strong> — Grassroots adoption; individual teams experiment and champion; then scale.</li>
+          <li><span class="dot d4-dot"></span><strong>Needs Assessment</strong> — Identify pain points, data readiness, skill gaps, infrastructure requirements.</li>
+          <li><span class="dot d4-dot"></span><strong>ROI Framework</strong> — Measure: time saved, cost reduction, revenue enabled, error rates reduced.</li>
+          <li><span class="dot d4-dot"></span><strong>Organizational Readiness</strong> — Data governance, change management, training, cultural buy-in.</li>
+          <li><span class="dot d4-dot"></span><strong>Humans in the Loop (HITL)</strong> — For high-stakes decisions, ensure humans review AI outputs. Especially critical in healthcare, legal, finance.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB: TOOLS ===== -->
+<div id="tab-tools" class="tab-panel">
+  <div class="section-title">Google GenAI Tools Map <span class="section-tag">Know Which = When</span></div>
+  <p class="section-desc">The #1 exam skill in Domain 2: pick the RIGHT Google tool for the scenario.</p>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap:16px; margin-bottom:32px;">
+
+    <div style="background:var(--surface2); border:1px solid var(--border); border-radius:14px; padding:20px;">
+      <div style="font-family:'Syne',sans-serif; font-weight:700; color:var(--accent3); margin-bottom:12px; font-size:0.9rem;">🧑‍💼 PERSONAL PRODUCTIVITY</div>
+      <ul class="concept-list">
+        <li><span class="dot d2-dot"></span><strong>Gemini App</strong> — Consumer AI chat assistant. General Q&A, writing, research.</li>
+        <li><span class="dot d2-dot"></span><strong>Gemini for Workspace</strong> — AI inside Gmail, Docs, Sheets, Slides, Meet. Drafting, summarizing, formatting.</li>
+        <li><span class="dot d2-dot"></span><strong>NotebookLM</strong> — Personal AI research tool. Upload docs → ask questions → grounded answers.</li>
+      </ul>
+    </div>
+
+    <div style="background:var(--surface2); border:1px solid var(--border); border-radius:14px; padding:20px;">
+      <div style="font-family:'Syne',sans-serif; font-weight:700; color:var(--accent); margin-bottom:12px; font-size:0.9rem;">🏗️ DEVELOPER / PROTOTYPING</div>
+      <ul class="concept-list">
+        <li><span class="dot d1-dot"></span><strong>Google AI Studio</strong> — Fast, free prototyping with Gemini API. No enterprise setup.</li>
+        <li><span class="dot d1-dot"></span><strong>Vertex AI Studio</strong> — Enterprise development; fine-tuning, grounding, production deployment.</li>
+        <li><span class="dot d1-dot"></span><strong>Model Garden</strong> — Browse & deploy models: Gemini, Llama, Mistral, Imagen, and more.</li>
+      </ul>
+    </div>
+
+    <div style="background:var(--surface2); border:1px solid var(--border); border-radius:14px; padding:20px;">
+      <div style="font-family:'Syne',sans-serif; font-weight:700; color:var(--accent4); margin-bottom:12px; font-size:0.9rem;">🏢 ENTERPRISE SOLUTIONS</div>
+      <ul class="concept-list">
+        <li><span class="dot d3-dot"></span><strong>Google Agentspace</strong> — Enterprise agent platform; connects internal data sources; employees query org knowledge.</li>
+        <li><span class="dot d3-dot"></span><strong>Customer Engagement Suite</strong> — AI-powered contact center; virtual agents; customer service automation.</li>
+        <li><span class="dot d3-dot"></span><strong>Gemini for Google Cloud</strong> — AI inside Cloud Console; BigQuery ML assistance; Colab code completion.</li>
+      </ul>
+    </div>
+
+    <div style="background:var(--surface2); border:1px solid var(--border); border-radius:14px; padding:20px;">
+      <div style="font-family:'Syne',sans-serif; font-weight:700; color:var(--accent2); margin-bottom:12px; font-size:0.9rem;">🔌 AI APIs (Pre-built)</div>
+      <ul class="concept-list">
+        <li><span class="dot d4-dot"></span><strong>Vision API</strong> — Image labeling, OCR, face detection, object detection.</li>
+        <li><span class="dot d4-dot"></span><strong>Document AI</strong> — Extract structured data from invoices, contracts, forms.</li>
+        <li><span class="dot d4-dot"></span><strong>Natural Language API</strong> — Sentiment, entity, syntax, classification.</li>
+        <li><span class="dot d4-dot"></span><strong>Speech-to-Text / Text-to-Speech</strong> — Audio ↔ text conversion.</li>
+        <li><span class="dot d4-dot"></span><strong>Translation API</strong> — Multi-language translation.</li>
+        <li><span class="dot d4-dot"></span><strong>Video Intelligence API</strong> — Scene detection, video transcription, content moderation.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <div class="warn-box-title">⚠️ Common Exam Traps</div>
+    <ul>
+      <li><strong>Google AI Studio ≠ Vertex AI Studio</strong> — AI Studio = prototype quickly; Vertex AI Studio = enterprise/production.</li>
+      <li><strong>NotebookLM ≠ Agentspace</strong> — NotebookLM = personal research on your docs; Agentspace = enterprise multi-system agent for all employees.</li>
+      <li><strong>Document AI ≠ Vision API</strong> — Document AI is for structured extraction from documents; Vision API is general image analysis.</li>
+      <li><strong>Gemini App ≠ Gemini API</strong> — Consumer app vs. API for building applications.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== TAB: KEY CONCEPTS ===== -->
+<div id="tab-concepts" class="tab-panel">
+  <div class="section-title">High-Frequency Concepts <span class="section-tag">Master These</span></div>
+  <p class="section-desc">The concepts most likely to appear on the exam. Know these cold.</p>
+
+  <div class="concepts-grid">
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">🌡️</span> Temperature</div>
+      <p>Controls output randomness. Low (0–0.2) = deterministic/factual. High (0.7–1.0) = creative/varied. Temperature = 0 → greedy decoding.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">👻</span> Hallucination</div>
+      <p>Model generates confident but factually incorrect information. Mitigation: RAG, grounding, temperature reduction, HITL review.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">🔍</span> RAG</div>
+      <p>Retrieval-Augmented Generation: retrieve relevant docs → inject into prompt context → generate grounded response. Reduces hallucinations without retraining.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">📐</span> Embeddings</div>
+      <p>Numerical vector representations of text/images. Similar meanings → nearby vectors. Power semantic search and RAG pipelines.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">🪟</span> Context Window</div>
+      <p>Maximum tokens a model can process at once (input + output). Larger = can handle longer documents. Critical for document summarization tasks.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">🤖</span> AI Agent</div>
+      <p>System that perceives environment, makes decisions, and takes actions to achieve a goal. Can use tools (APIs, search, code execution). LLM is the "brain."</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">⚖️</span> Responsible AI</div>
+      <p>Fairness, transparency, privacy, accountability, safety, social benefit. Google's 7 principles guide ethical AI development and deployment.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">🎯</span> Fine-tuning</div>
+      <p>Further train a pre-trained model on domain-specific data. Adapts model's weights. More expensive than prompting/RAG but enables deep style/domain adaptation.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">🔗</span> Chain-of-Thought</div>
+      <p>Prompt model to reason step-by-step ("Let's think step by step"). Dramatically improves accuracy on reasoning, math, and multi-step tasks.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">🛡️</span> SAIF</div>
+      <p>Google's Secure AI Framework. 6 elements for AI security: expand foundations, extend detection, automate, harmonize controls, adapt for AI risks, contextualize.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">👥</span> HITL</div>
+      <p>Humans in the Loop — humans review/approve AI outputs before action. Critical for high-stakes domains: medical diagnosis, legal decisions, financial approvals.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-card-title"><span class="concept-card-icon">📏</span> Eval Metrics</div>
+      <p>BLEU (machine translation quality), ROUGE (summarization recall), Perplexity (language model confidence), FID (image generation quality), Human eval.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 32px;">
+    <div class="section-title" style="font-size:1.15rem; margin-bottom:16px;">AI Architectures at a Glance</div>
+    <table class="compare-table">
+      <tr><th>Architecture</th><th>Best For</th><th>Example Models</th></tr>
+      <tr><td><strong>Transformer / LLM</strong></td><td>Text generation, Q&A, summarization, code</td><td>Gemini, GPT, PaLM</td></tr>
+      <tr><td><strong>Diffusion Models</strong></td><td>High-quality image generation</td><td>Imagen, Stable Diffusion, DALL-E</td></tr>
+      <tr><td><strong>GANs</strong></td><td>Image synthesis, style transfer (older approach)</td><td>StyleGAN</td></tr>
+      <tr><td><strong>Multimodal</strong></td><td>Text + image + audio + video together</td><td>Gemini (all variants)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== TAB: STUDY PLAN ===== -->
+<div id="tab-plan" class="tab-panel">
+  <div class="section-title">5-Phase Study Plan <span class="section-tag">~8–10 Weeks</span></div>
+  <p class="section-desc">A structured path from zero to exam-ready. Adjust timing based on your current knowledge.</p>
+
+  <div class="plan-phases">
+    <div class="phase-card">
+      <div class="phase-num phase-p1">1</div>
+      <div class="phase-content">
+        <div class="phase-title">GenAI Fundamentals</div>
+        <div class="phase-weeks">⏱ 1–2 Weeks</div>
+        <div class="phase-items">
+          • Understand AI → ML → Deep Learning → Generative AI hierarchy<br>
+          • Learn foundation models, transformers, LLMs, embeddings<br>
+          • Study structured vs. unstructured data; ML lifecycle stages<br>
+          • Explore GenAI use cases: text, image, code, audio, video generation<br>
+          • Read: Google's "Introduction to Generative AI" (free on Google Cloud Skills Boost)
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num phase-p2">2</div>
+      <div class="phase-content">
+        <div class="phase-title">Google Cloud GenAI Tools</div>
+        <div class="phase-weeks">⏱ 2–3 Weeks</div>
+        <div class="phase-items">
+          • Master: Gemini (consumer/Workspace/Cloud), Vertex AI, Google AI Studio<br>
+          • Deep dive: Vertex AI Studio vs. Google AI Studio differences<br>
+          • Learn all pre-built APIs: Vision, NLP, Speech, Document AI, Translation<br>
+          • Study Agentspace, NotebookLM, Customer Engagement Suite<br>
+          • Hands-on: Try Google AI Studio with Gemini API (free tier)<br>
+          • Complete Google Cloud Skills Boost: "Generative AI Explorer - Vertex AI"
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num phase-p3">3</div>
+      <div class="phase-content">
+        <div class="phase-title">Prompt Engineering & Optimization</div>
+        <div class="phase-weeks">⏱ 1–2 Weeks</div>
+        <div class="phase-items">
+          • Master all prompting techniques: zero/one/few-shot, CoT, role assignment<br>
+          • Understand temperature, top-p, top-k, max tokens — when to adjust each<br>
+          • Learn RAG deeply: pipeline, vector DBs, when to use vs. fine-tuning<br>
+          • Study grounding: Vertex Search, Google Search grounding<br>
+          • Practice: Write prompts in Google AI Studio; observe temperature effects
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num phase-p4">4</div>
+      <div class="phase-content">
+        <div class="phase-title">Responsible AI & Business Strategy</div>
+        <div class="phase-weeks">⏱ 1–2 Weeks</div>
+        <div class="phase-items">
+          • Memorize Google's 7 Responsible AI principles<br>
+          • Learn SAIF (Secure AI Framework) — 6 core elements<br>
+          • Study model selection framework: modality, context window, cost, compliance<br>
+          • Understand governance: IAM, VPC, data residency, regulatory compliance<br>
+          • Practice business case scenarios: when to use HITL, when to fine-tune vs. RAG<br>
+          • Read: Google's "Responsible AI Practices" documentation
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num phase-p5">5</div>
+      <div class="phase-content">
+        <div class="phase-title">Practice, Review & Exam Readiness</div>
+        <div class="phase-weeks">⏱ 1–2 Weeks</div>
+        <div class="phase-items">
+          • Take at least 2–3 full practice exams (target 80%+ before sitting real exam)<br>
+          • Review every wrong answer — understand WHY you were wrong<br>
+          • Re-read the Google Cloud official exam guide (cloud.google.com/certification)<br>
+          • Focus timed drills on your weakest domain<br>
+          • Spend last 3 days reviewing tools comparison tables and responsible AI principles
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-box" style="margin-top: 24px;">
+    <div class="tip-box-title">📚 Free Official Resources</div>
+    <ul>
+      <li>Google Cloud Skills Boost — "Introduction to Generative AI" learning path (free)</li>
+      <li>Google Cloud official exam guide (cloud.google.com/learn/certification/generative-ai-leader)</li>
+      <li>Google AI Studio (aistudio.google.com) — hands-on free prototyping</li>
+      <li>Google's Responsible AI practices documentation</li>
+      <li>NotebookLM (notebooklm.google.com) — free; use it to study from PDFs</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== TAB: EXAM TIPS ===== -->
+<div id="tab-tips" class="tab-panel">
+  <div class="section-title">Exam Day Strategy <span class="section-tag">Pass First Try</span></div>
+  <p class="section-desc">Tactical tips for navigating the actual exam with confidence.</p>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:24px;">
+    <div class="tip-box">
+      <div class="tip-box-title">✅ Question Strategy</div>
+      <ul>
+        <li>Read the ENTIRE question before looking at options.</li>
+        <li>Identify: What is the CORE problem? What constraints exist?</li>
+        <li>Match the scenario to a Google tool or AI technique.</li>
+        <li>Eliminate clearly wrong answers first (usually 2 can be cut immediately).</li>
+        <li>When 2 answers look right, pick the one that's most Google Cloud-specific.</li>
+        <li>For "most critical" questions — think about the primary blocker or constraint.</li>
+      </ul>
+    </div>
+    <div class="warn-box">
+      <div class="warn-box-title">⚠️ Common Mistakes to Avoid</div>
+      <ul>
+        <li>Confusing Google AI Studio (prototype) with Vertex AI Studio (production).</li>
+        <li>Choosing fine-tuning when RAG is cheaper and sufficient.</li>
+        <li>Ignoring compliance/data residency for healthcare/finance scenarios.</li>
+        <li>Not reading "select ALL that apply" carefully — may need multiple answers.</li>
+        <li>Forgetting responsible AI: always consider fairness and privacy angles.</li>
+        <li>Confusing Document AI (structured extraction) with Vision API (general image).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="background:var(--surface2); border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:20px;">
+    <div style="font-family:'Syne',sans-serif; font-weight:700; color:#fff; margin-bottom:14px;">🧩 Scenario Decision Framework</div>
+    <table class="compare-table">
+      <tr><th>If the scenario says…</th><th>Think…</th></tr>
+      <tr><td>"quickly prototype," "no coding," "experiment"</td><td><span class="tag tag-blue">Google AI Studio</span></td></tr>
+      <tr><td>"enterprise," "production," "security," "compliance"</td><td><span class="tag tag-green">Vertex AI Studio / Platform</span></td></tr>
+      <tr><td>"AI in Gmail / Docs / Sheets"</td><td><span class="tag tag-blue">Gemini for Workspace</span></td></tr>
+      <tr><td>"query internal documents / company knowledge"</td><td><span class="tag tag-purple">Agentspace or RAG</span></td></tr>
+      <tr><td>"research tool," "upload documents, ask questions"</td><td><span class="tag tag-green">NotebookLM</span></td></tr>
+      <tr><td>"extract data from invoices / contracts / forms"</td><td><span class="tag tag-yellow">Document AI</span></td></tr>
+      <tr><td>"analyze images for labels / objects / OCR"</td><td><span class="tag tag-blue">Vision API</span></td></tr>
+      <tr><td>"call center," "customer service," "virtual agent"</td><td><span class="tag tag-purple">Customer Engagement Suite</span></td></tr>
+      <tr><td>"model keeps giving wrong facts"</td><td><span class="tag tag-red">RAG / Grounding</span></td></tr>
+      <tr><td>"outputs too repetitive, need more variety"</td><td><span class="tag tag-yellow">Increase Temperature</span></td></tr>
+      <tr><td>"need domain-specific style / tone always"</td><td><span class="tag tag-red">Fine-tuning</span></td></tr>
+      <tr><td>"step-by-step reasoning, complex math"</td><td><span class="tag tag-green">Chain-of-Thought prompting</span></td></tr>
+      <tr><td>"healthcare / finance / GDPR / data must stay in region"</td><td><span class="tag tag-yellow">Data Residency / Compliance focus</span></td></tr>
+    </table>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-box-title">🏁 Final Week Checklist</div>
+    <ul>
+      <li>✓ Can you name all 4 exam domains and their weights?</li>
+      <li>✓ Can you distinguish Google AI Studio vs. Vertex AI Studio in 10 seconds?</li>
+      <li>✓ Do you know all 7 Google Responsible AI principles?</li>
+      <li>✓ Can you explain RAG pipeline end-to-end?</li>
+      <li>✓ Do you know when to use temperature vs. top-p adjustments?</li>
+      <li>✓ Can you match each Google Cloud AI API to its use case instantly?</li>
+      <li>✓ Did you score 80%+ on at least 2 full practice exams?</li>
+      <li>✓ Did you review every wrong answer with explanations?</li>
+    </ul>
+  </div>
+
+  <div class="ready-cta">
+    <h2>Ready to Test Yourself? 🎯</h2>
+    <p>When you feel confident with this material, ask me for practice questions — starting from the toughest scenario-based questions down to foundational concepts.</p>
+    <button class="cta-btn" onclick="alert('Tell Claude: I am ready for practice questions!')">I\'m Ready for Practice Questions →</button>
+  </div>
+</div>
+
+</main>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  else {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
+    });
+  }
+}
+
+function toggleTopic(el) {
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
